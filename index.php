@@ -6,11 +6,11 @@
 		<title>jQuery Datatable with Custom Json format in Php, Mysql </title>
 		<meta name="description" content="jQuery Datatable with Custom Json format in Php, Mysql" />
 		<meta name="author" content="Arkaprava Majumder" />
-		<!-- bootstrap css -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<!-- bootstrap css --><!-- 
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<!-- css for datatable-->
-		<link rel="STYLESHEET" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" type="text/css">
+		<link rel="STYLESHEET" href="css/jquery.dataTables.css" type="text/css">
     </head>
     <body>
 		<div class="nav-top clearfix">
@@ -43,8 +43,8 @@
 			Made with ♡ in India ©2016
 			<a href="http://coderexample.com/" title="CoderExample"> CoderExample</a>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery.dataTables.js"></script>
 		<script>
 		$(document).ready(function() {
 		    $('#datatable_demo').DataTable( {

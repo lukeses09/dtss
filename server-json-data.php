@@ -48,8 +48,11 @@ $totalFiltered = $totalData;  // when there is no search parameter then total nu
 // 	$sql.=" OR product_name LIKE '".$requestData['search']['value']."%' ";
 // 	$sql.=" OR pin_code LIKE '".$requestData['search']['value']."%' )";
 // }
-// $query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
-// $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
+
+
+$query = $conn->prepare($sql);
+$query -> execute();
+$totalFiltered = $query->rowCount(); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
 
 $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
