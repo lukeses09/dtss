@@ -1,11 +1,13 @@
 <?php
 /* Database connection start */
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "dtss";
+// $servername = "localhost";
+// $username = "root";
+// $password = "starwars";
+// $dbname = "order_product";
 
-$conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
+// $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
+
+$conn = new PDO("mysql:host=localhost;dbname=order_product","root","starwars");
 
 /* Database connection end */
 
@@ -25,32 +27,40 @@ $columns = array(
 // getting total number records without any search
 $sql = "SELECT * ";  //intensionaly * to fetch all columns
 $sql.=" FROM order_product";
-$query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
-$totalData = mysqli_num_rows($query);
+// $query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
+// $totalData = mysqli_num_rows($query);
+// $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
+
+$query = $conn->prepare($sql);
+$query -> execute();
+$totalData = $query->rowCount();
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
+// $sql = "SELECT * ";
+// $sql.=" FROM order_product WHERE 1=1";
+// if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+	
+// 	//$searchDataArray = array();
+// 	//$searchDataArray = explode(",",$requestData['search']['value'];
+	
+// 	$sql.=" AND ( invoice_no LIKE '".$requestData['search']['value']."%' ";    
+// 	$sql.=" OR product_name LIKE '".$requestData['search']['value']."%' ";
+// 	$sql.=" OR pin_code LIKE '".$requestData['search']['value']."%' )";
+// }
+// $query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
+// $totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
 
-$sql = "SELECT * ";
-$sql.=" FROM order_product WHERE 1=1";
-if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
-	
-	//$searchDataArray = array();
-	//$searchDataArray = explode(",",$requestData['search']['value'];
-	
-	$sql.=" AND ( invoice_no LIKE '".$requestData['search']['value']."%' ";    
-	$sql.=" OR product_name LIKE '".$requestData['search']['value']."%' ";
-	$sql.=" OR pin_code LIKE '".$requestData['search']['value']."%' )";
-}
-$query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
-$totalFiltered = mysqli_num_rows($query); // when there is a search parameter then we have to modify total number filtered rows as per search result. 
 $sql.=" ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
 /* $requestData['order'][0]['column'] contains colmun index, $requestData['order'][0]['dir'] contains order such as asc/desc  */	
-$query=mysqli_query($conn, $sql) or die("order_product-grid-data.php: get order_products");
+// $query=mysqli_query($conn, $sql) ;
+$query = $conn->prepare($sql);
+$query -> execute();
+// $totalData = $query->rowCount();
 
-
+$stmt = $conn->query($sql);
 $data = array();
-while( $row=mysqli_fetch_assoc($query) ) {  // preparing an array
+while( $row=$stmt->fetch(PDO::FETCH_ASSOC) ) {  // preparing an array
 	$nestedData=array(); 
 
 
