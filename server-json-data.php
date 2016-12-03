@@ -37,17 +37,17 @@ $totalData = $query->rowCount();
 $totalFiltered = $totalData;  // when there is no search parameter then total number rows = total number filtered rows.
 
 
-// $sql = "SELECT * ";
-// $sql.=" FROM order_product WHERE 1=1";
-// if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
+$sql = "SELECT * ";
+$sql.=" FROM order_product WHERE 1=1";
+if( !empty($requestData['search']['value']) ) {   // if there is a search parameter, $requestData['search']['value'] contains search parameter
 	
-// 	//$searchDataArray = array();
-// 	//$searchDataArray = explode(",",$requestData['search']['value'];
+	//$searchDataArray = array();
+	//$searchDataArray = explode(",",$requestData['search']['value'];
 	
-// 	$sql.=" AND ( invoice_no LIKE '".$requestData['search']['value']."%' ";    
-// 	$sql.=" OR product_name LIKE '".$requestData['search']['value']."%' ";
-// 	$sql.=" OR pin_code LIKE '".$requestData['search']['value']."%' )";
-// }
+	$sql.=" AND ( invoice_no LIKE '".$requestData['search']['value']."%' ";    
+	$sql.=" OR product_name LIKE '".$requestData['search']['value']."%' ";
+	$sql.=" OR pin_code LIKE '".$requestData['search']['value']."%' )";
+}
 
 
 $query = $conn->prepare($sql);
